@@ -1,7 +1,6 @@
 # ============================================================
 # Mental Disorder Risk Predictor
-# Streamlit 在线预测工具
-# 适用人群：年龄 >= 45 岁
+# 适用人群：年龄 >= 45 岁且有子女
 # ============================================================
 import streamlit as st
 import pandas as pd
@@ -26,13 +25,14 @@ st.set_page_config(
 st.title("🧠 Mental Disorder Risk Predictor")
 st.write("An interpretable online prediction tool for mental disorder risk based on the Logistic regression model.")
 
-st.info("📌 **Applicable Population**: This prediction tool is designed for adults aged **>= 45 years**. It may not be applicable to younger populations.")
+# 【适用人群说明：年龄 >= 45 岁且有子女】
+st.info("📌 **Applicable Population**: This prediction tool is designed for adults **aged ≥ 45 years with children**. It may not be applicable to other populations.")
 
 st.markdown("---")
 
 # ---- 3. 侧边栏 ----
 st.sidebar.header("📋 Patient Characteristics")
-st.sidebar.warning("⚠️ For adults aged >= 45 years only.")
+st.sidebar.warning("⚠️ For adults aged ≥ 45 years with children only.")
 
 with st.sidebar.expander("📖 Variable Definitions", expanded=False):
     st.markdown("""
@@ -46,7 +46,7 @@ with st.sidebar.expander("📖 Variable Definitions", expanded=False):
 
     **3. Income level of children**
     - 0 = Low income: All children have annual income < 10,000
-    - 1 = High income: At least one child has annual income >= 10,000
+    - 1 = High income: At least one child has annual income ≥ 10,000
 
     **4. Visits with children**
     - 0 = Less than once a year or never
@@ -147,7 +147,7 @@ if prob < 0.3:
 elif prob < 0.6:
     st.warning("**Intermediate Risk** (30%-60%): Enhanced monitoring recommended")
 else:
-    st.error("**High Risk** (>= 60%): Early intervention recommended")
+    st.error("**High Risk** (≥ 60%): Early intervention recommended")
 
 # ---- 7. 变量定义表 ----
 st.markdown("---")
@@ -167,8 +167,8 @@ var_def = pd.DataFrame({
     "Definition": [
         "0 = All daughters; 1 = Has sons",
         "0 = All below-college; 1 = At least one attended college",
-        "0 = All children have annual income < 10,000; 1 = At least one child has annual income >= 10,000",
-        "0 = <Once/year; 1 = >=Once/year",
+        "0 = All children have annual income < 10,000; 1 = At least one child has annual income ≥ 10,000",
+        "0 = <Once/year; 1 = ≥Once/year",
         "1 = Not at all; 2 = Not very; 3 = Somewhat; 4 = Very; 5 = Completely",
         "0 = No; 1 = Yes (hypertension, diabetes, heart disease, stroke, arthritis, cancer, etc.)",
         "0 = No; 1 = Yes (6 items; difficulty in ANY item = 1)",
@@ -197,11 +197,11 @@ st.markdown("""
 3. Make clinical decisions based on risk level
    - Low Risk (< 30%): Routine follow-up
    - Intermediate Risk (30%-60%): Enhanced monitoring
-   - High Risk (>= 60%): Early intervention
+   - High Risk (≥ 60%): Early intervention
 
 **⚠️ Important Notes:**
-- This tool is designed for **adults aged >= 45 years**.
-- It should not be used for younger populations.
+- This tool is designed for **adults aged ≥ 45 years with children**.
+- It should not be used for other populations.
 - Model developed using CHARLS data; externally validated using HRS Wave 9 (2008).
 """)
 
