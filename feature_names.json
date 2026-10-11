@@ -1,0 +1,11 @@
+[
+  "child_gender",
+  "child_max_education_level.x",
+  "child_income_level",
+  "child_face_to_face",
+  "life_sat",
+  "chronic_base",
+  "ADL_disability",
+  "IADL_disability",
+  "gender_Male"
+]
